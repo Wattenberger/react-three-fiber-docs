@@ -1,8 +1,6 @@
----
-title: Scaling performance
-description: This is a short primer on how to scale performance.
-nav: 10
----
+# Scaling performance
+
+>This is a short primer on how to scale performance.
 
 Running WebGL can be quite expensive depending on how powerful your devices are. In order to mitigate this, especially if you want to make your application available to a broad variety of devices, including weaker options, you should look into performance optimizations. This article goes through a couple of them.
 
@@ -14,7 +12,9 @@ But if the moving parts in your scene are allowed to come to rest, then it would
 
 Open the sandbox below in a full screen and look into dev tools, you will see that it is completely idle when nothing is going on. It renders only when you move the model.
 
-<Codesandbox id="wvgxp" />
+![Codesandbox example](https://docs.pmnd.rs/_next/image?url=https%3A%2F%2Fcodesandbox.io%2Fapi%2Fv1%2Fsandboxes%2Fwvgxp%2Fscreenshot.png&w=3840&q=75)
+[example](https://codesandbox.io/s/color-grading-wvgxp?file=/package.json:0-2)
+
 
 All you need to do is set the canvas `frameloop` prop to `demand`. It will render frames whenever it detects prop changes throughout the component tree.
 
@@ -37,7 +37,7 @@ function Controls() {
   return <orbitControls ref={ref} args={[camera, gl.domElement]} />
 ```
 
-<Hint>Drei's controls do this automatically for you.</Hint>
+> Drei's controls do this automatically for you.
 
 Generally you can call invalidate whenever you need to render:
 
@@ -45,13 +45,8 @@ Generally you can call invalidate whenever you need to render:
 invalidate()
 ```
 
-<Hint>
 
-Calling `invalidate()` will not render immediately, it merely requests a
-new frame to be rendered out. Calling invalidate multiple times will not render multiple times.
-Think of it as a flag to tell the system that something has changed.
-
-</Hint>
+> Calling `invalidate()` will not render immediately, it merely requests a new frame to be rendered out. Calling invalidate multiple times will not render multiple times. Think of it as a flag to tell the system that something has changed.
 
 ## Re-using geometries and materials
 
@@ -72,11 +67,11 @@ function Scene() {
 
 ### Caching with useLoader
 
-<Hint>Every resource that is loaded with useLoader is cached automatically!</Hint>
+> Every resource that is loaded with useLoader is cached automatically!
 
 If you access a resource via useLoader with the same URL, throughout the component tree, then you will always refer to the same asset and thereby re-use it. This is especially useful if you run your GLTF assets through [GLTFJSX](https://github.com/pmndrs/gltfjsx) because it links up geometries and materials and thereby creates re-usable models.
 
-<Codesandbox id="dix1y" />
+<iframe src="https://codesandbox.io/embed/dix1y?codemirror=1&fontsize=14&hidenavigation=1&" width="100%" height="500px" />
 
 ```jsx
 function Shoe(props) {
@@ -96,7 +91,7 @@ function Shoe(props) {
 
 Each mesh is a draw call, you should be mindful of how many of these you employ: no more than 1000 as the very maximum, and optimally a few hundred or less. You can win performance back by reducing draw calls, for example by instancing repeating objects. This way you can have hundreds of thousands of objects in a single draw call.
 
-<Codesandbox id="h873k" />
+<iframe src="https://codesandbox.io/embed/h873k?codemirror=1&fontsize=14&hidenavigation=1&" width="100%" height="500px" />
 
 Setting up instancing is not so hard, consult [the three.js docs](https://threejs.org/docs/#api/en/objects/InstancedMesh) if you need help.
 
@@ -128,7 +123,7 @@ Sometimes it can be beneficial to reduce the quality of an object the further it
 
 Scroll in and out to see the effect:
 
-<Codesandbox id="12nmp" />
+<iframe src="https://codesandbox.io/embed/12nmp?codemirror=1&fontsize=14&hidenavigation=1&" width="100%" height="500px" />
 
 There is a small component in Drei called `<Detailed />` which sets up LOD without boilerplate. You load or prepare a couple of resolution stages, as many as you like, and then give them the same amount of distances from the camera, starting from highest quality to lowest.
 
@@ -157,7 +152,7 @@ The following sandbox goes through three loading stages:
 - Low quality
 - High quality
 
-<Codesandbox id="7duy8" />
+<iframe src="https://codesandbox.io/embed/7duy8?codemirror=1&fontsize=14&hidenavigation=1&" width="100%" height="500px" />
 
 And this is how easy it is to achieve it, you can nest suspense and even use it as a fallback:
 
@@ -186,7 +181,7 @@ Websites like Sketchfab make sure the scene is always fluid, running at 60 fps, 
 
 The following sandbox uses expensive lights and post-processing. In order for it to run relatively smooth it will scale the pixel ratio on movement and also skip heavy post-processing effects like ambient occlusion.
 
-<Codesandbox id="pz0q6" />
+<iframe src="https://codesandbox.io/embed/pz0q6?codemirror=1&fontsize=14&hidenavigation=1&" width="100%" height="500px" />
 
 When you inspect the state model you will notice an object called `performance`.
 
@@ -226,7 +221,7 @@ useEffect(() => {
 
 ### This is how you can respond to it
 
-<Hint>Mere calls to regress() will not change or affect anything!</Hint>
+> Mere calls to regress() will not change or affect anything!
 
 Your app has to opt into performance scaling by listening to the performance `current`! The number itself will tell you what to do. 1 (max) means everything is ok, the default. Less than 1 (min) means a regression is requested and the number itself tells you how far you should go when scaling down.
 
@@ -268,27 +263,7 @@ It simulates heavy load by creating hundreds of THREE.TextGeometry instances (51
 | three.js | ~20fps      | ~5fps   |
 | React    | ~60fps      | ~60fps  |
 
-<p align="center">
-  <img
-    aria-label="three.js distributed"
-    style={{ width: '50%', display: 'inline-block' }}
-    src="https://github.com/drcmda/scheduler-test/raw/master/assets/three-distributed.jpg"
-  />
-  <img
-    aria-label="three.js at once"
-    style={{ width: '50%', display: 'inline-block' }}
-    src="https://github.com/drcmda/scheduler-test/raw/master/assets/three-at-once.jpg"
-  />
-  <img
-    aria-label="React distributed"
-    style={{ width: '50%', display: 'inline-block' }}
-    src="https://github.com/drcmda/scheduler-test/raw/master/assets/react-distributed.jpg"
-  />
-  <img
-    aria-label="React at once"
-    style={{ width: '50%', display: 'inline-block' }}
-    src="https://github.com/drcmda/scheduler-test/raw/master/assets/react-at-once.jpg"
-  />
-</p>
+
+<img aria-label="three.js distributed" src="https://github.com/drcmda/scheduler-test/raw/master/assets/three-distributed.jpg" style="width: 50%; display: inline-block;" class="hoverZoomLink"><img aria-label="three.js at once" width='50%' style="display: inline-block" src="https://github.com/drcmda/scheduler-test/raw/master/assets/three-at-once.jpg"  /><img aria-label="React distributed" width='50%' style="display: inline-block"    src="https://github.com/drcmda/scheduler-test/raw/master/assets/react-distributed.jpg"  /><img aria-label="React at once" width='50%' style="display: inline-block"    src="https://github.com/drcmda/scheduler-test/raw/master/assets/react-at-once.jpg"  />
 
 For more on how to use this API, see [use startTransition for expensive ops](/react-three-fiber/advanced/pitfalls#use-starttransition-for-expensive-ops).
