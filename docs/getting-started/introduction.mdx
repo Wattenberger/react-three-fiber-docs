@@ -1,8 +1,6 @@
----
-title: Introduction
-description: React-three-fiber is a React renderer for three.js.
-nav: 0
----
+# Introduction
+
+React-three-fiber is a React renderer for three.js.
 
 ```bash
 npm install three @react-three/fiber
@@ -26,147 +24,14 @@ No. There is no additional overhead. Components participate in a unified renderl
 
 ### What does it look like?
 
-<table>
-  <tr>
-    <td>
-      Let's make a re-usable component that has its own state, reacts to user-input and participates in the render-loop.
-      (<a href="https://codesandbox.io/s/rrppl0y8l4?file=/src/App.js">live demo</a>).
-    </td>
-    <td>
-      <a href="https://codesandbox.io/s/rrppl0y8l4">
-        <img src="https://i.imgur.com/sS4ArrZ.gif" />
-      </a>
-    </td>
-  </tr>
-</table>
+Let's make a re-usable component that has its own state, reacts to user-input and participates in the render-loop.
 
-```jsx
-import { createRoot } from 'react-dom/client'
-import React, { useRef, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+<iframe src="https://codesandbox.io/embed/rrppl0y8l4?codemirror=1&fontsize=14&hidenavigation=1&view=split" width="100%" height="500px" />
 
-function Box(props) {
-  // This reference will give us direct access to the mesh
-  const mesh = useRef()
-  // Set up state for the hovered and active state
-  const [hovered, setHover] = useState(false)
-  const [active, setActive] = useState(false)
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => (mesh.current.rotation.x += 0.01))
-  // Return view, these are regular three.js elements expressed in JSX
-  return (
-    <mesh
-      {...props}
-      ref={mesh}
-      scale={active ? 1.5 : 1}
-      onClick={(event) => setActive(!active)}
-      onPointerOver={(event) => setHover(true)}
-      onPointerOut={(event) => setHover(false)}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-    </mesh>
-  )
-}
+### Typescript example
+  
+<iframe src="https://codesandbox.io/embed/icy-tree-brnsm?codemirror=1&fontsize=14&hidenavigation=1&view=split" width="100%" height="500px" />
 
-createRoot(document.getElementById('root')).render(
-  <Canvas>
-    <ambientLight />
-    <pointLight position={[10, 10, 10]} />
-    <Box position={[-1.2, 0, 0]} />
-    <Box position={[1.2, 0, 0]} />
-  </Canvas>,
-)
-```
-
-<details>
-  <summary>Show TypeScript example</summary>
-
-```bash
-npm install @types/three
-```
-
-```tsx
-import * as THREE from 'three'
-import { createRoot } from 'react-dom/client'
-import React, { useRef, useState } from 'react'
-import { Canvas, useFrame, ThreeElements } from '@react-three/fiber'
-
-function Box(props: ThreeElements['mesh']) {
-  const mesh = useRef<THREE.Mesh>(null!)
-  const [hovered, setHover] = useState(false)
-  const [active, setActive] = useState(false)
-  useFrame((state, delta) => (mesh.current.rotation.x += 0.01))
-  return (
-    <mesh
-      {...props}
-      ref={mesh}
-      scale={active ? 1.5 : 1}
-      onClick={(event) => setActive(!active)}
-      onPointerOver={(event) => setHover(true)}
-      onPointerOut={(event) => setHover(false)}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-    </mesh>
-  )
-}
-
-createRoot(document.getElementById('root')).render(
-  <Canvas>
-    <ambientLight />
-    <pointLight position={[10, 10, 10]} />
-    <Box position={[-1.2, 0, 0]} />
-    <Box position={[1.2, 0, 0]} />
-  </Canvas>,
-)
-```
-
-Live demo: https://codesandbox.io/s/icy-tree-brnsm?file=/src/App.tsx
-
-</details>
-
-<details>
-  <summary>Show React Native example</summary>
-
-For installation instructions see [react native installation instructions](https://docs.pmnd.rs/react-three-fiber/getting-started/installation#react-native).
-
-```jsx
-import React, { useRef, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber/native'
-
-function Box(props) {
-  const mesh = useRef(null)
-  const [hovered, setHover] = useState(false)
-  const [active, setActive] = useState(false)
-  useFrame((state, delta) => (mesh.current.rotation.x += 0.01))
-  return (
-    <mesh
-      {...props}
-      ref={mesh}
-      scale={active ? 1.5 : 1}
-      onClick={(event) => setActive(!active)}
-      onPointerOver={(event) => setHover(true)}
-      onPointerOut={(event) => setHover(false)}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'orange'} />
-    </mesh>
-  )
-}
-
-export default function App() {
-  return (
-    <Canvas>
-      <ambientLight />
-      <pointLight position={[10, 10, 10]} />
-      <Box position={[-1.2, 0, 0]} />
-      <Box position={[1.2, 0, 0]} />
-    </Canvas>
-  )
-}
-```
-
-</details>
-
----
 
 ### Fundamentals
 
