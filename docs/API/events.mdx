@@ -1,8 +1,6 @@
----
-title: Events
-description: All the events you can hook up to
-nav: 8
----
+# Events
+
+>All the events you can hook up to
 
 `three.js` objects that implement their own `raycast` method (meshes, lines, etc) can be interacted with by declaring events on them. We support pointer events, clicks and wheel-scroll. Events contain the browser event as well as the `three.js` event data (object, point, distance, etc). You may want to [polyfill](https://github.com/jquery/PEP) them, if that's a concern.
 
@@ -47,20 +45,10 @@ Also notice the `onPointerMissed` on the canvas element, which fires on clicks t
 
 ### How the event-system works, bubbling and capture
 
-<Hint>
+> `pointerenter` and `pointerleave` events work exactly the same as pointerover and pointerout. `pointerenter` and `pointerleave` semantics are not implemented.
 
-`pointerenter` and `pointerleave` events work exactly the same as pointerover and pointerout.
-`pointerenter` and `pointerleave` semantics are not implemented.
+> Some events (such as `pointerout`) happen when there is no intersection between `eventObject` and the ray. When this happens, the event will contain intersection data from a previous event with this object.
 
-</Hint>
-
-<Hint>
-
-Some events (such as `pointerout`) happen when there is no intersection between `eventObject` and
-the ray. When this happens, the event will contain intersection data from a previous event with
-this object.
-
-</Hint>
 
 ### Event propagation (bubbling)
 
