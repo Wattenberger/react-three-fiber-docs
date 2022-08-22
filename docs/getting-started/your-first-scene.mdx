@@ -1,10 +1,8 @@
----
-title: Your first scene
-description: This guide will help you setup your first React Three Fiber scene and introduce you to its core concepts.
-nav: 2
----
+# Your first scene
 
-This tutorial will assume some React knowledge.
+This guide will help you setup your first React Three Fiber scene and introduce you to its core concepts.
+
+> This tutorial will assume some React knowledge.
 
 ## Setting up the Canvas
 
@@ -30,10 +28,7 @@ The Canvas component does some important setup work behind the scenes:
 - It sets up a **Scene** and a **Camera**, the basic building blocks necessary for rendering
 - It renders our scene every frame, you do not need a traditional render-loop
 
-<Hint>
-  Canvas is responsive to fit the parent node, so you can control how big it is by changing the parents width and
-  height, in this case #canvas-container.
-</Hint>
+> Canvas is responsive to fit the parent node, so you can control how big it is by changing the parents width and height, in this case #canvas-container.
 
 ## Adding a Mesh Component
 
@@ -44,11 +39,7 @@ To actually see something in our scene, we'll add a lowercase `<mesh />` native 
   <mesh />
 ```
 
-<Hint>
-  Note that we don't need to import anything, All three.js objects will be treated as native JSX elements, just like you
-  can just write &lt;div /&gt; or &lt;span /&gt; in regular ReactDOM. The general rule is that Fiber components are
-  available under the camel-case version of their name in three.js.
-</Hint>
+> Note that we don't need to import anything, All three.js objects will be treated as native JSX elements, just like you can just write &lt;div /&gt; or &lt;span /&gt; in regular ReactDOM. The general rule is that Fiber components are available under the camel-case version of their name in three.js.
 
 A [`Mesh`](https://threejs.org/docs/#api/en/objects/Mesh) is a basic scene object in three.js, and it's used to hold the geometry and the material needed to represent a shape in 3D space.
 We'll create a new mesh using a **BoxGeometry** and a **MeshStandardMaterial** which [automatically attach](https://docs.pmnd.rs/react-three-fiber/api/objects#attach) to their parent.
@@ -159,7 +150,9 @@ Please refer to the API for [a deeper explanation](/react-three-fiber/api/object
 </Canvas>
 ```
 
-<Codesandbox id="12q81" />
+
+<iframe src="https://codesandbox.io/embed/12q81?codemirror=1&fontsize=14&hidenavigation=1&view=split" width="100%" height="500px" />
+
 
 ## Exercise
 
