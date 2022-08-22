@@ -1,8 +1,6 @@
----
-title: 'v8 Migration Guide'
-description: Changes and new features with v8 and react 18
-nav: 13
----
+# v8 Migration Guide
+
+>Changes and new features with v8 and react 18
 
 Work on version 8 has begun 3 Sep 2021 and is perhaps the biggest update to Fiber yet. We've tried our best to keep breaking-changes to a minimum, they mostly affect rarely used api's like `attach`. This release brings a ton of performance related fixes, but also includes some new and ground breaking features.
 
@@ -129,11 +127,7 @@ const sizes = calculateSizes(radius)
 
 Please be careful, this is an extreme stress test. It creates so much load that without React the browser will freeze or crash.
 
-<p>
-  <a href="https://codesandbox.io/s/qjo4t">
-    <img width="49%" src="https://codesandbox.io/api/v1/sandboxes/qjo4t/screenshot.png" alt="View splitting" />
-  </a>
-</p>
+<a href="https://codesandbox.io/s/qjo4t"> <img width="49%" src="https://codesandbox.io/api/v1/sandboxes/qjo4t/screenshot.png" alt="View splitting" /> </a>
 
 ## Conditional rendering with frameloop
 
