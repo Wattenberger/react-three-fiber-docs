@@ -1,8 +1,6 @@
----
-title: Basic Animations
-description: This guide will help you understand refs, useFrame and how to make basic animations with Fiber
-nav: 17
----
+# Basic Animations
+
+> This guide will help you understand refs, useFrame and how to make basic animations with Fiber
 
 This tutorial will assume some React knowledge, and will be based on [this starter codesandbox](https://codesandbox.io/s/getting-started-01-12q81?from-embed), so just fork it and follow along!
 
@@ -76,7 +74,8 @@ Let's have a closer look:
 - We are accessing the `rotation.x` property of `myMesh.current` object, which is a reference to our mesh object
 - We are assigning our time-dependent value `a` to the `rotation` on the `x` axis, meaning our object will now infinitely rotate between -1 and 1 radians around the x axis!
 
-<Codesandbox id="29gxw" />
+<iframe src="https://codesandbox.io/embed/29gxw?codemirror=1&fontsize=14&hidenavigation=1&view=split" width="100%" height="500px" />
+
 
 **Exercises**
 
